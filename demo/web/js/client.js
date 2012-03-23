@@ -18,6 +18,7 @@ $(function() {
 		id: "submit",
 		text: "Send",
 		href: "#",
+        class: "btn",
 		click: function(event) {
 			event.preventDefault();
 			$(this).closest("form").submit();
@@ -76,19 +77,21 @@ function setupChannel(name) {
     			.addClass("chat-msg chat-system-msg");
     	
     	$("<span></span>")
+            .addClass("chat-nick")
+            .text(message.nick)
+            .appendTo(row);
+        
+        $("<span></span>")
+            .addClass("chat-text")
+            .text("joined the room")
+            .appendTo(row);
+
+        $("<span></span>")
     		.addClass("chat-time")
     		.text(time)
     		.appendTo(row);
     	
-    	$("<span></span>")
-    		.addClass("chat-nick")
-    		.text(message.nick)
-    		.appendTo(row);
     	
-    	$("<span></span>")
-    		.addClass("chat-text")
-    		.text("joined the room")
-    		.appendTo(row);
     	
     	row.appendTo(log);
     })
@@ -100,6 +103,10 @@ function setupChannel(name) {
     			"class": colors[0],
     			text: message.nick
     		});
+            $("<i></i>")
+                .addClass("icon-user")
+                .prependTo(nick);
+
     	colors.push(colors.shift());
     	$("#users > li").each(function() {
     		if (message.nick == this.innerHTML) {

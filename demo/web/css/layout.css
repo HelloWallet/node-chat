@@ -81,15 +81,13 @@ body > header img {
 
 #chat-log div.chat-msg {
   margin-right: 10px;
-  padding: 6px 70px 6px 30px;
+  padding: 6px 70px 6px 10px;
   font-size: 10pt;
   -webkit-box-shadow: 0 9px 3px -7px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 9px 3px -7px rgba(0,0,0,0.4);
   box-shadow: 0 9px 3px -7px rgba(0,0,0,0.4);
   margin-bottom: 15px;
   position: relative;
-  line-height: 140%;
-  text-indent: -20px;
   background:#fff;
   float:left;
   width:50%;
@@ -99,31 +97,33 @@ body > header img {
   text-align: center;
   font-style: italic;
   color: #999;
-  width:50%;
+  width:70%;
   border-radius:4px;
   float:none;
   margin: 0 auto 15px;
 }
 
 
+#chat-log div.chat-msg .chat-label-wrap {
+  width:20%;
+  float:left;
+}
+#chat-log div.chat-msg .chat-text {
+  float:left;
 
+}
 .chat-time {
-  position: absolute;
-  font-size: 10px;
-  height: 10pt;
-  line-height: 12px;
-  right: 6px;
-  top: 7px;
-  color: #111;
-  font-weight: bold;
-  font-style: normal;
-  text-shadow: #4a4a4a 0 1px 0;
+  display:block;
+  font-size:10px;
+  color:#aaa;
 }
 
 #chat-log div.chat-msg .chat-nick {
+  display:block;
   color: #64b8e0;
   font-weight:bold;
   margin-right: 10px;
+  margin-bottom: 2px;
 }
 
 #chat-log div.chat-msg .chat-nick:after {
@@ -146,64 +146,74 @@ body > header img {
   float:right;
   width:50%;
 }
-
+#chat-log div.chat-system-msg .chat-text{
+  float:none;
+  display: inline;
+  margin-right:5px;
+}
+#chat-log div.chat-system-msg .chat-time{
+  float:none;
+  display: inline;
+}
+#chat-log div.chat-system-msg .chat-nick{
+  float:none;
+  display: inline;
+}
 
 /** USER LIST */
 
 #users {
   position: fixed;
   width: 155px;
-  top: 45px;
+  top: 23px;
   right: 25px;
+  background:#f7f7f7;
+  padding-top:10px;
+  height:100%;
+  box-shadow:0 0 5px rgba(0,0,0,0.4);
+  border-top: 1px solid white;
+  text-shadow:0 1px 0 #fff;
 }
 
 #users li {
-  color: #fff;
-  background: rgba(173,224,245, 0.7);
-
-  font-size: 14px;
+  color: #333;
+  font-size: 12px;
   text-align: center;
-  text-indent: -1px;
-  text-shadow: rgba(0,0,0,1) 0 1px 0;
-  line-height: 30px;
-  
-  margin: 0 0 5px 0;
-  width: 155px;
+  margin: 0 auto 5px auto;
+  width: 145px;
   height: 35px;
-  
   position: relative;
   cursor: pointer;
+  border-bottom:1px solid rgba(0,0,0,0.2);
 }
-
+#users li  i {
+  margin-right:3px;
+}
 #users li:hover {
-  color: #fff;
-  background-position: 0 -36px;
+
 }
 
-
-#users li:active {
-  color: #fff;
-  line-height: 33px;
-  text-indent: -1px;
-  background-position: 0 -72px;
-}
 
 
 
 /** ENTRY FORM */
 
 #entry {
-  border-top: solid 1px #c2c2c2;
+  border-top: solid 1px rgba(0,0,0,0.1);
   border-bottom: solid 1px #646464;
-  -webkit-box-shadow: #000 0 -1px 0;
-  -moz-box-shadow: #000 0 -1px 0;
-  box-shadow: #000 0 -1px 0;
+  box-shadow:0 -5px 3px -4px rgba(0,0,0,0.1);
   height: 60px;
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 26px;
-  background: #a7a7a7 url(../images/metal.jpg) center -3px repeat-x;
+  bottom: 0;
+background: -moz-linear-gradient(top, rgba(255,255,255,0.31) 0%, rgba(255,255,255,0) 13%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.31)), color-stop(13%,rgba(255,255,255,0)));
+background: -webkit-linear-gradient(top, rgba(255,255,255,0.31) 0%,rgba(255,255,255,0) 13%);
+background: -o-linear-gradient(top, rgba(255,255,255,0.31) 0%,rgba(255,255,255,0) 13%);
+background: -ms-linear-gradient(top, rgba(255,255,255,0.31) 0%,rgba(255,255,255,0) 13%);
+background: linear-gradient(top, rgba(255,255,255,0.31) 0%,rgba(255,255,255,0) 13%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4fffffff', endColorstr='#00ffffff',GradientType=0 );
 }
 
 #entry p {
@@ -213,7 +223,7 @@ body > header img {
   right: 270px;
 
   width: auto;
-  bottom: 46px;
+  bottom: 22px;
   
 }
 
@@ -236,33 +246,14 @@ body > header img {
 
 #entry a#submit {
   position: absolute;
-  background: url(../images/send.png) no-repeat;
   right: -6px;
-  top: -4px;
-  text-align: center;
-  width: 68px;
-  height: 27px;
-  line-height: 25px;
-  border: none;
-  padding: 0;
-  outline: none;
-  font-size: 14px;
-  text-indent: -1px;
-  color: #111;
-  text-shadow: rgba(255,255,255,0.3) 0 1px 0;
-  text-decoration: none;
+  top: -5px;
+  text-decoration:none;
 }
 
 #entry a#submit:hover {
-  background-position: 0 -27px;
-  text-shadow: rgba(255,255,255,0.3) 0 1px 0, rgba(255,255,255,0.8) 0 0 6px;
-}
-
-#entry a#submit:active {
-  background-position: 0 -54px;
-  line-height: 27px;
-  text-indent: 1px;
-}
+  text-decoration:none;
+} 
 
 #entry fieldset {
   position: absolute;
