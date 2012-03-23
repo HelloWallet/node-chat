@@ -10,7 +10,38 @@ chatServer.listen(8001);
 
 // create a channel and log all activity to stdout
 chatServer.addChannel({
+	title: 'Main Room',
 	basePath: "/chat"
+}).addListener("msg", function(msg) {
+	sys.puts("<" + msg.nick + "> " + msg.text);
+}).addListener("join", function(msg) {
+	sys.puts(msg.nick + " join");
+}).addListener("part", function(msg) {
+	sys.puts(msg.nick + " part");
+});
+chatServer.addChannel({
+	title: 'Engineering',
+	basePath: "/engineering"
+}).addListener("msg", function(msg) {
+	sys.puts("<" + msg.nick + "> " + msg.text);
+}).addListener("join", function(msg) {
+	sys.puts(msg.nick + " join");
+}).addListener("part", function(msg) {
+	sys.puts(msg.nick + " part");
+});
+chatServer.addChannel({
+	title: 'UX',
+	basePath: "/ux"
+}).addListener("msg", function(msg) {
+	sys.puts("<" + msg.nick + "> " + msg.text);
+}).addListener("join", function(msg) {
+	sys.puts(msg.nick + " join");
+}).addListener("part", function(msg) {
+	sys.puts(msg.nick + " part");
+});
+chatServer.addChannel({
+	title: 'Private Room 1',
+	basePath: "/room1"
 }).addListener("msg", function(msg) {
 	sys.puts("<" + msg.nick + "> " + msg.text);
 }).addListener("join", function(msg) {
