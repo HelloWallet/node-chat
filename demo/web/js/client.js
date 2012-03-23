@@ -46,17 +46,22 @@ function setupChannel(name) {
     		row = $("<div></div>")
     			.addClass("chat-msg");
     	
+        var label = $("<div></div>")
+            .addClass("chat-label-wrap");
+
     	$("<span></span>")
+            .addClass("chat-nick")
+            .text(message.nick)
+            .appendTo(label);
+
+        $("<span></span>")
     		.addClass("chat-time")
     		.text(time)
-    		.appendTo(row);
+    		.appendTo(label);
     	
-    	$("<span></span>")
-    		.addClass("chat-nick")
-    		.text(message.nick)
-    		.appendTo(row);
-    	
-    	$("<span></span>")
+        label.appendTo(row)
+
+    	$("<p></p>")
     		.addClass("chat-text")
     		.text(message.text)
     		.appendTo(row);

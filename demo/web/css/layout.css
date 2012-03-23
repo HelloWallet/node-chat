@@ -39,7 +39,15 @@ body > header {
   
   display: block;
 }
-
+body > header h1 {
+  font-size:12px;
+  color:#fff;
+  text-transform:uppercase;
+  line-height: 20px;
+  margin-left: 10px;
+  font-weight:300;
+  text-shadow: 0 1px 2px #000;
+}
 body > header img {
   position: relative;
   top: 3px;
@@ -90,8 +98,11 @@ body > header img {
 #chat-log div.chat-system-msg {
   text-align: center;
   font-style: italic;
-  color: #888;
-  text-shadow: #000 0 -1px 0;
+  color: #999;
+  width:50%;
+  border-radius:4px;
+  float:none;
+  margin: 0 auto 15px;
 }
 
 
@@ -147,13 +158,13 @@ body > header img {
 }
 
 #users li {
-  color: #ccc;
-  background: url(../images/button.png) no-repeat;
+  color: #fff;
+  background: rgba(173,224,245, 0.7);
 
   font-size: 14px;
   text-align: center;
   text-indent: -1px;
-  text-shadow: rgba(0,0,0,1) 0 -1px 0, rgba(0,0,0,0.4) 0 0 1px;
+  text-shadow: rgba(0,0,0,1) 0 1px 0;
   line-height: 30px;
   
   margin: 0 0 5px 0;
@@ -177,29 +188,7 @@ body > header img {
   background-position: 0 -72px;
 }
 
-/* Adds the glow */
-#users li:after {
-  content: "";
-  display: block;
-  width: 57px;
-  height: 12px;
-  position: absolute;
-  left: 50%;
-  margin-left: -29px;
-  top: 25px;
-  background: url(../images/glows.png) no-repeat;
-}
 
-#users li:active:after {
-  top: 26px;
-}
-
-#users li.green:after   { background-position: 0 0;}
-#users li.orange:after  { background-position: -57px 0;}
-#users li.yellow:after  { background-position: -114px 0;}
-#users li.red:after     { background-position: -171px 0;}
-#users li.fuschia:after { background-position: -228px 0;}
-#users li.blue:after    { background-position: -285px 0;}
 
 /** ENTRY FORM */
 
