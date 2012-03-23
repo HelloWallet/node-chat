@@ -5,7 +5,8 @@ var title = document.title,
 	channels = [],
     channel,
 	log,
-	message;
+	message,
+    myNick;
 
 // TODO: handle connectionerror
 
@@ -46,7 +47,10 @@ function setupChannel(name) {
     	var time = formatTime(message.timestamp),
     		row = $("<div></div>")
     			.addClass("chat-msg");
-    	
+    	   if(myNick === message.nick){
+                row.addClass("me");
+           }
+           console.log(message);
         var label = $("<div></div>")
             .addClass("chat-label-wrap");
 
@@ -100,7 +104,6 @@ function setupChannel(name) {
     .bind("join", function(event, message) {
     	var added = false,
     		nick  = $("<li></li>", {
-    			"class": colors[0],
     			text: message.nick
     		});
             $("<i></i>")
@@ -201,6 +204,7 @@ $(function() {
 	var login = $("#login");
 	login.submit(function() {
 		var nick = $.trim($("#nick").val());
+        myNick = nick;
         var room = $("#room").val();
 
         console.log(room);

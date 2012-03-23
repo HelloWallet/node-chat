@@ -89,7 +89,7 @@ body > header img {
   margin-bottom: 15px;
   position: relative;
   background:#fff;
-  float:left;
+  float:right;
   width:50%;
 }
 
@@ -127,7 +127,7 @@ body > header img {
 }
 
 #chat-log div.chat-msg .chat-nick:after {
-  content: ":";
+  content: " says:";
 }
 
 #chat-log div.chat-system-msg .chat-nick {
@@ -141,9 +141,9 @@ body > header img {
 }
 
 
-#chat-log div.chat-msg:nth-child(2n){
+#chat-log div.chat-msg.me{
   background: #fefefe;
-  float:right;
+  float:left;
   width:50%;
 }
 #chat-log div.chat-system-msg .chat-text{
