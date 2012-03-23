@@ -54,10 +54,11 @@ dev_server = {
     "watchFiles": function() {
         var that = this;
 
-        child_process.exec('find . | grep "\.js$"', function(error, stdout, stderr) {
+        child_process.exec('find . | grep "^.*\.\\(js\\|css\\|html\\)$"', function(error, stdout, stderr) {
             var files = stdout.trim().split("\n");
 
             files.forEach(function(file) {
+                console.log(file);
                 that.files.push(file);
                 fs.watchFile(file, {interval : 500}, function(curr, prev) {
                     if (curr.mtime.valueOf() != prev.mtime.valueOf() || curr.ctime.valueOf() != prev.ctime.valueOf()) {
