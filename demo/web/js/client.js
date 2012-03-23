@@ -2,7 +2,8 @@
 
 var title = document.title,
 	colors  = ["green", "orange", "yellow", "red", "fuschia", "blue"],
-	channel = nodeChat.connect("/chat"),
+	channels = [],
+    channel,
 	log,
 	message;
 
@@ -32,122 +33,131 @@ $(function() {
 	});
 });
 
-// new message posted to channel
-// - add to the chat log
-$(channel).bind("msg", function(event, message) {
-	var time = formatTime(message.timestamp),
-		row = $("<div></div>")
-			.addClass("chat-msg");
-	
-	$("<span></span>")
-		.addClass("chat-time")
-		.text(time)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-nick")
-		.text(message.nick)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-text")
-		.text(message.text)
-		.appendTo(row);
-	
-	row.appendTo(log);
-})
-// another user joined the channel
-// - add to the chat log
-.bind("join", function(event, message) {
-	var time = formatTime(message.timestamp),
-		row = $("<div></div>")
-			.addClass("chat-msg chat-system-msg");
-	
-	$("<span></span>")
-		.addClass("chat-time")
-		.text(time)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-nick")
-		.text(message.nick)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-text")
-		.text("joined the room")
-		.appendTo(row);
-	
-	row.appendTo(log);
-})
-// another user joined the channel
-// - add to the user list
-.bind("join", function(event, message) {
-	var added = false,
-		nick  = $("<li></li>", {
-			"class": colors[0],
-			text: message.nick
-		});
-	colors.push(colors.shift());
-	$("#users > li").each(function() {
-		if (message.nick == this.innerHTML) {
-			added = true;
-			return false;
-		}
-		if (message.nick < this.innerHTML) {
-			added = true;
-			nick.insertBefore(this);
-			return false;
-		}
-	});
-	if (!added) {
-		$("#users").append(nick);
-	}
-})
-// another user left the channel
-// - add to the chat log
-.bind("part", function(event, message) {
-	var time = formatTime(message.timestamp),
-		row = $("<div></div>")
-			.addClass("chat-msg chat-system-msg");
-	
-	$("<span></span>")
-		.addClass("chat-time")
-		.text(time)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-nick")
-		.text(message.nick)
-		.appendTo(row);
-	
-	$("<span></span>")
-		.addClass("chat-text")
-		.text("left the room")
-		.appendTo(row);
-	
-	row.appendTo(log);
-})
-// another user left the channel
-// - remove from the user list
-.bind("part", function(event, message) {
-	$("#users > li").each(function() {
-		if (this.innerHTML == message.nick) {
-			$(this).remove();
-			return false;
-		}
-	});
-})
 
-// Auto scroll list to bottom
-.bind("join part msg", function() {
-	// auto scroll if we're within 50 pixels of the bottom
-	if (log.scrollTop() + 50 >= log[0].scrollHeight - log.height()) {
-		window.setTimeout(function() {
-			log.scrollTop(log[0].scrollHeight);
-		}, 10);
-	}
-});
+function setupChannel(name) {
+    
+    channel = nodeChat.connect(name);
+    channels.push(channel);
+    
+    // new message posted to channel
+    // - add to the chat log
+    $(channel).bind("msg", function(event, message) {
+    	var time = formatTime(message.timestamp),
+    		row = $("<div></div>")
+    			.addClass("chat-msg");
+    	
+    	$("<span></span>")
+    		.addClass("chat-time")
+    		.text(time)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-nick")
+    		.text(message.nick)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-text")
+    		.text(message.text)
+    		.appendTo(row);
+    	
+    	row.appendTo(log);
+    })
+    // another user joined the channel
+    // - add to the chat log
+    .bind("join", function(event, message) {
+    	var time = formatTime(message.timestamp),
+    		row = $("<div></div>")
+    			.addClass("chat-msg chat-system-msg");
+    	
+    	$("<span></span>")
+    		.addClass("chat-time")
+    		.text(time)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-nick")
+    		.text(message.nick)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-text")
+    		.text("joined the room")
+    		.appendTo(row);
+    	
+    	row.appendTo(log);
+    })
+    // another user joined the channel
+    // - add to the user list
+    .bind("join", function(event, message) {
+    	var added = false,
+    		nick  = $("<li></li>", {
+    			"class": colors[0],
+    			text: message.nick
+    		});
+    	colors.push(colors.shift());
+    	$("#users > li").each(function() {
+    		if (message.nick == this.innerHTML) {
+    			added = true;
+    			return false;
+    		}
+    		if (message.nick < this.innerHTML) {
+    			added = true;
+    			nick.insertBefore(this);
+    			return false;
+    		}
+    	});
+    	if (!added) {
+    		$("#users").append(nick);
+    	}
+    })
+    // another user left the channel
+    // - add to the chat log
+    .bind("part", function(event, message) {
+    	var time = formatTime(message.timestamp),
+    		row = $("<div></div>")
+    			.addClass("chat-msg chat-system-msg");
+    	
+    	$("<span></span>")
+    		.addClass("chat-time")
+    		.text(time)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-nick")
+    		.text(message.nick)
+    		.appendTo(row);
+    	
+    	$("<span></span>")
+    		.addClass("chat-text")
+    		.text("left the room")
+    		.appendTo(row);
+    	
+    	row.appendTo(log);
+    })
+    // another user left the channel
+    // - remove from the user list
+    .bind("part", function(event, message) {
+    	$("#users > li").each(function() {
+    		if (this.innerHTML == message.nick) {
+    			$(this).remove();
+    			return false;
+    		}
+    	});
+    })
+    
+    // Auto scroll list to bottom
+    .bind("join part msg", function() {
+    	// auto scroll if we're within 50 pixels of the bottom
+    	if (log.scrollTop() + 50 >= log[0].scrollHeight - log.height()) {
+    		window.setTimeout(function() {
+    			log.scrollTop(log[0].scrollHeight);
+    		}, 10);
+    	}
+    });
+
+    return channel;
+}
 
 // handle login (choosing a nick)
 $(function() {
@@ -160,10 +170,28 @@ $(function() {
 			.find("input")
 				.focus();
 	}
+
+    $.ajax({
+        url: '/channels',
+        cache: false,
+        dataType: "json",
+        success: function(data) {
+            var room = $("#room");
+            for(var i in data.titles) {
+                $("<option></option>")
+                    .attr('value', data.titles[i].path)
+                    .text(data.titles[i].title)
+                    .appendTo(room);
+            }
+        }
+    });
 	
 	var login = $("#login");
 	login.submit(function() {
 		var nick = $.trim($("#nick").val());
+        var room = $("#room").val();
+
+        console.log(room);
 		
 		// TODO: move the check into nodechat.js
 		if (!nick.length || !/^[a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/.test(nick)) {
@@ -171,6 +199,7 @@ $(function() {
 			return false;
 		}
 		
+        channel = setupChannel(room);
 		channel.join(nick, {
 			success: function() {
 				$("body")
