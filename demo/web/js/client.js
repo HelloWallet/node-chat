@@ -71,7 +71,13 @@ function setupChannel(name) {
     		.text(message.text)
     		.appendTo(row);
     	
-    	row.appendTo(log);
+        aniwrap = $("<div></div>")
+            .addClass("aniwrap");
+
+    	row.appendTo(aniwrap).addClass("ani-msg");
+        aniwrap.appendTo(log);
+        var lh = log.innerHeight();
+        log.scrollTop(lh)
     })
     // another user joined the channel
     // - add to the chat log
@@ -104,7 +110,7 @@ function setupChannel(name) {
     .bind("join", function(event, message) {
     	var added = false,
     		nick  = $("<li></li>", {
-    			text: message.nick
+    			text: "@" + message.nick
     		});
             $("<i></i>")
                 .addClass("icon-user")
@@ -192,11 +198,15 @@ $(function() {
         dataType: "json",
         success: function(data) {
             var room = $("#room");
+            var list = $("#channel-list ul");
             for(var i in data.titles) {
                 $("<option></option>")
                     .attr('value', data.titles[i].path)
                     .text(data.titles[i].title)
                     .appendTo(room);
+                $("<li></li>")
+                    .text(data.titles[i].title)
+                    .appendTo(list);
             }
         }
     });
