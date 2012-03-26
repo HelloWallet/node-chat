@@ -2,6 +2,7 @@
 
 html {
   background: #fff url(../images/purty_wood.png);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 html, body {
@@ -12,14 +13,7 @@ html, body {
 /* Fonts */
 
 /* Normal type */
-body, #users li, #entry input[type=text], a#submit, #chat-log {
-  font-family: Helvetica, Arial, sans-serif;
-}
 
-/* Specia Type */
-footer p.credits, #login h1 {
-    font-family: "Gill Sans", "Gill Sans MT", Helvetica, Arial, sans-serif;
-}
 
 /** HEADER */
 
@@ -30,13 +24,10 @@ body > header {
   -moz-box-shadow: rgba(255,255,255,0.1) 0 1px 0;
   box-shadow: rgba(255,255,255,0.1) 0 1px 0;
   position: fixed;
-  
   top: 0;
   right: 0;
   left: 0;
-  
   height: 23px;
-  
   display: block;
 }
 body > header h1 {
@@ -125,7 +116,10 @@ body > header img {
   margin-right: 10px;
   margin-bottom: 2px;
 }
-
+#chat-log div.chat-msg .chat-text strong.usr {
+  font-weight:bold;
+  color:#444;
+}
 
 #chat-log div.chat-system-msg {
   box-shadow:none;
@@ -313,25 +307,23 @@ span.pipe {
 
 #login {
   position: fixed;
-  height: 70px;
+  height: 80px;
   left: 0;
   right: 0;
   margin-top: -75px;
   top: 50%;
   z-index: 200;
-  background: #a7a7a7 url(../images/metal.jpg) 0 -3px repeat-x;
   border-top: solid 1px #bbb;
   border-bottom: solid 1px #666;
   -webkit-box-shadow: rgba(0,0,0,0.4) 0 2px 4px;
+  background:#fff;
 }
 
 #login h1 {
   text-transform: uppercase;
   color: #333;
   text-align: center;
-  padding: 4px 0 0 0;
   font-size: 16px;
-  letter-spacing: 1px;
   text-shadow: rgba(255,255,255,0.3) 0 1px 0;
 }
 
@@ -343,21 +335,13 @@ span.pipe {
   line-height: 35px;
   left: 0;
   right: 0;
-  bottom: 10px;
+  bottom: 19px;
   text-align: center;
-  background: url(../images/footer.png) repeat-x;
+}
+#login select {
+  margin-right:10px;
 }
 
-#login input {
-  width: 150px;
-  margin-left: 5px;
-  background: #fff;
-  border: none;
-  padding: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
 
 #login.error {
   -webkit-box-shadow: red 0 0 100px;
@@ -366,10 +350,8 @@ span.pipe {
 }
 
 #login p label {
-    color: #ddd;
+    color: #666;
     font-size: 12px;
-    font-style: italic;
-    text-shadow: #000 0 1px 0;
 }
 
 body.login header:after {

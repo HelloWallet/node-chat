@@ -97,6 +97,7 @@ $.extend(Channel.prototype, {
 	
 	send: function(msg) {
 		if (!this.id) { return; }
+
 		// TODO: use POST
 		this.request("/send", {
 			data: {

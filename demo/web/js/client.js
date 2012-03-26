@@ -30,7 +30,7 @@ $(function() {
 	// Add a message indicator when a nickname is clicked
 	$("#users").delegate("li", "click", function() {
 		message
-			.val($(this).text() + ": " + message.val())
+			.val("@" + $(this).text() + " " + message.val())
 			.focus();
 	});
 });
@@ -50,7 +50,7 @@ function setupChannel(name) {
     	   if(myNick === message.nick){
                 row.addClass("me");
            }
-           console.log(message);
+           
         var label = $("<div></div>")
             .addClass("chat-label-wrap");
 
@@ -64,11 +64,27 @@ function setupChannel(name) {
     		.text(time)
     		.appendTo(label);
     	
-        label.appendTo(row)
+        label.appendTo(row);
+
+        //message syntax highlighting
+        var spacepos,
+        newmsg,
+        atpos = message.text.search("@");
+        console.log(atpos);
+        if(atpos >= 0){
+            spacepos = message.text.indexOf(" ", atpos);
+            console.log(spacepos);
+            var orig = message.text.slice(atpos,spacepos);
+            console.log(orig);
+            newmsg = message.text.replace(orig,"<strong class='usr'>" + orig + "</strong>");
+            console.log(newmsg);
+        }else{
+            newmsg = message.text;
+        }
 
     	$("<p></p>")
     		.addClass("chat-text")
-    		.text(message.text)
+    		.html(newmsg)
     		.appendTo(row);
     	
         aniwrap = $("<div></div>")
@@ -110,7 +126,7 @@ function setupChannel(name) {
     .bind("join", function(event, message) {
     	var added = false,
     		nick  = $("<li></li>", {
-    			text: "@" + message.nick
+    			text: message.nick
     		});
             $("<i></i>")
                 .addClass("icon-user")
@@ -207,7 +223,23 @@ $(function() {
                 $("<li></li>")
                     .text(data.titles[i].title)
                     .appendTo(list);
+                /*  .click(function(){
+                        var newroom = $(this).text();
+                        console.log(newroom);
+                        channel.part();
+                        channel = setupChannel(newroom);
+                        channel.join(myNick, {
+                            success: function(){
+                                message.focus();
+                            },
+                            error: function(){
+                                alert("couldn't join channel");
+                            }
+                        });
+                    });
+                */
             }
+
         }
     });
 	
@@ -252,6 +284,8 @@ $(function() {
 		return false;
 	});
 });
+
+
 
 // update the page title to show if there are unread messages
 $(function() {
