@@ -70,14 +70,10 @@ function setupChannel(name) {
         var spacepos,
         newmsg,
         atpos = message.text.search("@");
-        console.log(atpos);
         if(atpos >= 0){
             spacepos = message.text.indexOf(" ", atpos);
-            console.log(spacepos);
             var orig = message.text.slice(atpos,spacepos);
-            console.log(orig);
             newmsg = message.text.replace(orig,"<strong class='usr'>" + orig + "</strong>");
-            console.log(newmsg);
         }else{
             newmsg = message.text;
         }
